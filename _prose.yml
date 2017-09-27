@@ -1,0 +1,9 @@
+prose:
+	siteurl: "https://36wish.github.io"
+    media: "images"
+	metadata:
+      _posts:
+        - name: "title"
+          field:
+            element: "text"
+            label: "title"
