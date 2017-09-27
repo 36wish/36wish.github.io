@@ -1,7 +1,7 @@
 prose:
-	siteurl: "https://36wish.github.io"
+    siteurl: "https://36wish.github.io"
     media: "images"
-	metadata:
+    metadata:
       _posts:
         - name: "title"
           field:
