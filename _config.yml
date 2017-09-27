@@ -3,7 +3,7 @@
 # # # # # # # # # # # # #
 
 # Basic
-name:               "Kiko Plus"
+name:               "Felix's Blog"
 
 author:
   facebook:         FelixLee
@@ -21,6 +21,7 @@ author:
   medium:           #your-id
   tumblr:           #your-id
   email:            #your-id@your-email.com
+  rss:              true
 
 copyright:
   year:             2017
