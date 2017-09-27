@@ -2,12 +2,12 @@
 layout: default
 ---
 <header>
-  <div class="header-small">
-    <a href="{{site.url}}{{site.baseurl}}">{{ site.name }}</a>
+  <div class="header-title">
+    <a href="{{ site.url }}{{ site.baseurl }}">{{ site.name }}</a>
   </div>
-  <div class="header-title">{{ page.title }}</div>
   <nav class="header-nav">
     {% for nav in site.nav %}
+    {% if nav.name == page.title %}#{% endif %}
     {% if nav.url contains 'http://' or nav.url contains 'https://' %}
     <a href="{{ nav.url }}">{{ nav.name }}</a>
     {% else %}
