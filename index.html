@@ -37,7 +37,7 @@ layout: default
       </div>
       {% if post.excerpt %}
       <div class="list-post-desc">
-        {{ post.excerpt }}
+        {{ post.excerpt | strip_html}}
       </div>
       {% endif %}
     </a>
