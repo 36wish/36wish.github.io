@@ -13,5 +13,6 @@ prose:
             label: "Tags"
         - name: "comments"
           field:
+            label: "Comments"
             element: "checkbox"
             value: true
