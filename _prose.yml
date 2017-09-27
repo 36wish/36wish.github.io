@@ -16,3 +16,10 @@ prose:
             label: "Comments"
             element: "checkbox"
             value: true
+        - name: "date"
+          field:
+            label: "Date"
+            element: "text"
+            value: CURRENT_DATETIME
+            
+            
