@@ -1,5 +1,5 @@
 ---
-comments: false
+comments: true
 published: true
 title: Bigpipe Broadband referral link and voucher code
 tags: deals broadband
