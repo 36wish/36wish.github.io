@@ -7,12 +7,13 @@ layout: default
   </div>
   <nav class="header-nav">
     {% for nav in site.nav %}
-    {% if nav.name == page.title %}#{% endif %}
+    {% if nav.name == page.title %}<b>{% endif %}
     {% if nav.url contains 'http://' or nav.url contains 'https://' %}
     <a href="{{ nav.url }}">{{ nav.name }}</a>
     {% else %}
     <a href="{{ nav.url | prepend: site.baseurl }}">{{ nav.name }}</a>
     {% endif %}
+    {% if nav.name == page.title %}</b>{% endif %}
     {% endfor %}
   </nav>
 </header>
