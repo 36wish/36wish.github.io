@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "한글 문서 스타일 샘플"
-description: "한글로 된 글의 샘플입니다."
-date: 2017-01-19
-tags: [샘플 포스트, 테스트, 스타일]
+title: 한글 문서 스타일 샘플
+description: 한글로 된 글의 샘플입니다.
+date: {}
+tags:
+  - 샘플 포스트
+  - 테스트
+  - 스타일
 comments: true
 share: true
+published: false
 ---
 
 이 글은 스타일을 모아둔 것입니다. 소스 코드를 확인하여 스타일을 적용하는 방법을 알아보세요.
