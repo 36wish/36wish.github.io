@@ -1,8 +1,10 @@
 ---
 published: true
 title: Using Chromecast to watch Live Freeview NZ TV
+tags: tech
 ---
-[Screenshot_2017-09-28-09-46-45.png]({{site.baseurl}}/_posts/Screenshot_2017-09-28-09-46-45.png)
+![Screenshot_2017-09-28-09-46-45.png]({{site.baseurl}}/images/Screenshot_2017-09-28-09-46-45.png)
+
 
 You want to watch live Freeview NZ TV, but you don't have a decoder and all you have is a Chromecast? No problem, just follow these steps to get started.
 
