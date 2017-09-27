@@ -1,8 +1,9 @@
 ---
-comments: true
+comments: false
 published: true
 title: Bigpipe Broadband referral link and voucher code
 tags: deals broadband
+date: '2017-09-28 12:38 +1300'
 ---
 Signing up for Bigpipe Broadband? Use my referral link and get a GrabOne voucher for the best deal!
 
