@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Using Chromecast to watch Live Freeview NZ TV
 ---
 [Screenshot_2017-09-28-09-46-45.png]({{site.baseurl}}/_posts/Screenshot_2017-09-28-09-46-45.png)
