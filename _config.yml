@@ -3,7 +3,9 @@
 # # # # # # # # # # # # #
 
 # Basic
-name:               "Felix's Blog"
+name:               "36wish"
+title:              "36wish"
+description:        "A blog about life, the universe, and everything."
 
 author:
   facebook:         #FelixLee
