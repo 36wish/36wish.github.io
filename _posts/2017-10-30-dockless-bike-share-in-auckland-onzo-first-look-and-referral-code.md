@@ -4,6 +4,7 @@ date: '2017-10-30 12:08 +1300'
 published: true
 title: Dockless bike share in Auckland! Onzo first look and referral code.
 tags: transport
+description: Dockless bike share is here! So exciting!
 ---
 ![Onzo bike on the pink Lightpath]({{site.baseurl}}/images/IMG_20171030_111919.jpg)
 
