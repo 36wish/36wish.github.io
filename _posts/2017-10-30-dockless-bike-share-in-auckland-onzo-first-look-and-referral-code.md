@@ -1,15 +1,15 @@
 ---
 comments: true
 date: '2017-10-30 12:08 +1300'
-published: false
+published: true
 title: Dockless bike share in Auckland! Onzo first look and referral code.
 tags: transport
 ---
-![Onzo bike on the pink Lightpath]({{site.baseurl}}/images/IMG_20171030_111915.jpg)
+![Onzo bike on the pink Lightpath]({{site.baseurl}}/images/IMG_20171030_111919.jpg)
 
-Dockless bike shares have been a thing overseas for a while now, and it's so exciting to see it in Auckland!
+Dockless bike shares have been a thing overseas for a while now, and it's so exciting to see it in Auckland! I took one out for a spin on the pink Lightpath today.
 
-The bikes are from a company called Onzo. As usual, you register by downloading their app [[Android](Android)] [[iOS](https://itunes.apple.com/nz/app/onzo/id1291209476?mt=8)] and entering your credit card details. It charges a $10 deposit (refundable) and they give you $10 credit for signing up. If you enter my referral code **SAQIZJ** you get another $1 bonus.
+The bikes are from a Chinese company called Onzo. As usual, you register by downloading their app [[Android](Android)] [[iOS](https://itunes.apple.com/nz/app/onzo/id1291209476?mt=8)] and entering your credit card details. It charges a $10 deposit (refundable) and they give you $10 credit for signing up. If you enter my referral code **SAQIZJ** you get another $1 bonus.
 
 The bikes are pretty basic but functional. There's no gears though which does make it harder pedalling it up Auckland's hills. Otherwise it's a pretty good ride.
 
@@ -24,6 +24,8 @@ Basket at the front.
 ![]({{site.baseurl}}/images/IMG_20171030_111932.jpg)
 
 Locking Mechanism. 
+
+![Screenshot_2017-10-30-12-42-32.png]({{site.baseurl}}/images/Screenshot_2017-10-30-12-42-32.png)
 
 You can check out the locations of the bikes on the app, looks like they got quite a few.
 
