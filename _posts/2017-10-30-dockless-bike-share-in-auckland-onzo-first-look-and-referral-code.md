@@ -12,6 +12,8 @@ Dockless bike shares have been a thing overseas for a while now, and it's so exc
 
 The bikes are from a Chinese company called Onzo. As usual, you register by downloading their app [[Android](Android)] [[iOS](https://itunes.apple.com/nz/app/onzo/id1291209476?mt=8)] and entering your credit card details. It charges a $10 deposit (refundable) and they give you $10 credit for signing up. If you enter my referral code **SAQIZJ** you get another $1 bonus.
 
+You scan the QR code on the bike using the app to unlock it, and once you've finished with it, just put it in a safe location and lock the bike. Easy. The price currently is $0.25/15 minutes.
+
 The bikes are pretty basic but functional. There's no gears though which does make it harder pedalling it up Auckland's hills. Otherwise it's a pretty good ride.
 
 ![]({{site.baseurl}}/images/IMG_20171030_111938.jpg)
