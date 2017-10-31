@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OnzO real time map</title>
+		<style>
+			#map {
+			    height: 100%;
+				width: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;    
+		 	}
+		 	#overlay {
+			    height: 100%;
+				width: 100%;
+				line-height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;   
+				background: rgba(0, 0, 0, 0.32);
+				color: white;
+				font-family: Verdana,sans-serif;
+				z-index: 99; 
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    font-size: x-large;
+		 	}
+		</style>
+		<!-- <script src='jquery-2.1.1.min.js'></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src='test.js'></script>
+	</head>
+
+	<body>
+		<div id='overlay'>Loading...</div>
+		<div id='map'></div>
+		<script src='map2.js'></script>
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJS1fUKDSkoD3wGcbhnhwbco6LMC8nadE&callback=initMap">
+		</script>
+	</body>
+</html>
