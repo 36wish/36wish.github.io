@@ -5,6 +5,9 @@ function initMap() {
 		center: auckland
 	});
 
+	var bikeLayer = new google.maps.BicyclingLayer();
+    bikeLayer.setMap(map);
+
     var pinColor = 'ffeb3b';
     var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|" + pinColor,
         new google.maps.Size(21, 34),
