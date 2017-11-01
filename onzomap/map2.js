@@ -24,7 +24,7 @@ function initMap() {
  //          infowindow.setContent('Zoom: ' + map.getZoom());
  //        });
 
-
+ 
 	$.getJSON(`https://cors-anywhere.herokuapp.com/https://app.onzo.co.nz/nearby/${auckland.lat}/${auckland.lng}/50.0`, function(json) {
 		$('#overlay').remove()
 		console.log(json.data)
