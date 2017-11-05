@@ -1,9 +1,25 @@
 function initMap() {
-	var auckland = {lat: -36.848123, lng: 174.765588};
+	// var auckland = {lat: -36.848123, lng: 174.765588};
+	const aucklandLat = -36.848123;
+	const aucklandLng = 174.765588;
+	var lat = parseFloat(localStorage.getItem('lat')) || aucklandLat
+	var lng = parseFloat(localStorage.getItem('lng')) || aucklandLon
+	var zoom = parseInt(localStorage.getItem('zoom')) || 16
+
+	console.log(lat, lng, zoom)
 	var map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 16,
-		center: auckland
+		zoom: zoom,
+		center: {lat:lat, lng:lng}
 	});
+
+	map.addListener('bounds_changed',function(){
+		console.log('zoom',map.getZoom())
+		console.log('lat',map.getCenter().lat())
+		console.log('lng',map.getCenter().lng())
+		localStorage.setItem('zoom', map.getZoom())
+		localStorage.setItem('lat', map.getCenter().lat())
+		localStorage.setItem('lng', map.getCenter().lng())
+	})
 
 	var bikeLayer = new google.maps.BicyclingLayer();
     bikeLayer.setMap(map);
@@ -37,7 +53,7 @@ function initMap() {
 	// $.getJSON(`https://cors-anywhere.herokuapp.com/https://app.onzo.co.nz/nearby/${auckland.lat}/${auckland.lng}/50.0`, function(json) {
 	$.getJSON("http://query.yahooapis.com/v1/public/yql",
 		{
-			q: `select * from json where url="https://app.onzo.co.nz/nearby/${auckland.lat}/${auckland.lng}/50.0"`,
+			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
 			format: "json"
 		},
 		function(json){	
@@ -45,8 +61,8 @@ function initMap() {
 			console.log(json)
 			console.log(json.query.results.json.data)
 			json.query.results.json.data.forEach(function(e){
-				console.log(e)
-				console.log(e.latitude, e.longitude)
+				//console.log(e)
+				//console.log(e.latitude, e.longitude)
 				var marker = new google.maps.Marker({
 					position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
 					//label: e.id + '',
