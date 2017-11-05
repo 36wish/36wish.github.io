@@ -1,8 +1,9 @@
 function updateHash(map){
+	const rnd = 6
 	console.log('zoom',map.getZoom())
-	console.log('lat',map.getCenter().lat())
-	console.log('lng',map.getCenter().lng())
-	window.location.hash = `${map.getCenter().lat()}/${map.getCenter().lng()}/${map.getZoom()}`
+	console.log('lat',map.getCenter().lat().toFixed(rnd))
+	console.log('lng',map.getCenter().lng().toFixed(rnd))
+	window.location.hash = `${map.getCenter().lat().toFixed(rnd)}/${map.getCenter().lng().toFixed(rnd)}/${map.getZoom()}`
 }
 
 function initMap() {
