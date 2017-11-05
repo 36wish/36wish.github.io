@@ -3,7 +3,7 @@ function initMap() {
 	const aucklandLat = -36.848123;
 	const aucklandLng = 174.765588;
 	var lat = parseFloat(localStorage.getItem('lat')) || aucklandLat
-	var lng = parseFloat(localStorage.getItem('lng')) || aucklandLon
+	var lng = parseFloat(localStorage.getItem('lng')) || aucklandLng
 	var zoom = parseInt(localStorage.getItem('zoom')) || 16
 
 	console.log(lat, lng, zoom)
