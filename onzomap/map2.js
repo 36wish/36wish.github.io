@@ -51,7 +51,7 @@ function initMap() {
 	});
 // https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22https%3A%2F%2Fapp.onzo.co.nz%2Fnearby%2F-36.848123%2F174.765588%2F50.0%22&format=json&diagnostics=true&callback=
 	// $.getJSON(`https://cors-anywhere.herokuapp.com/https://app.onzo.co.nz/nearby/${auckland.lat}/${auckland.lng}/50.0`, function(json) {
-	$.getJSON("http://query.yahooapis.com/v1/public/yql",
+	$.getJSON("https://query.yahooapis.com/v1/public/yql",
 		{
 			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
 			format: "json"
