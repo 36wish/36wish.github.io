@@ -1,25 +1,49 @@
+function updateHash(map){
+	console.log('zoom',map.getZoom())
+	console.log('lat',map.getCenter().lat())
+	console.log('lng',map.getCenter().lng())
+	window.location.hash = `${map.getCenter().lat()}/${map.getCenter().lng()}/${map.getZoom()}`
+}
+
 function initMap() {
 	// var auckland = {lat: -36.848123, lng: 174.765588};
 	const aucklandLat = -36.848123;
 	const aucklandLng = 174.765588;
-	var lat = parseFloat(localStorage.getItem('lat')) || aucklandLat
-	var lng = parseFloat(localStorage.getItem('lng')) || aucklandLng
-	var zoom = parseInt(localStorage.getItem('zoom')) || 16
-
+	var lat, lng, zoom;
+	
+	if (/#-\d+.?\d*\/\d+.?\d*\/\d{1,2}/.test(window.location.hash)){
+		hash = window.location.hash.slice(1).split('/')
+		lat = parseFloat(hash[0]);
+		lng = parseFloat(hash[1]);
+		zoom = parseInt(hash[2])
+	}else{
+		lat = parseFloat(localStorage.getItem('lat')) || aucklandLat
+		lng = parseFloat(localStorage.getItem('lng')) || aucklandLng
+		zoom = parseInt(localStorage.getItem('zoom')) || 16
+	}
 	console.log(lat, lng, zoom)
 	var map = new google.maps.Map(document.getElementById('map'), {
 		zoom: zoom,
 		center: {lat:lat, lng:lng}
 	});
 
-	map.addListener('bounds_changed',function(){
+	map.addListener('idle',function(){
 		console.log('zoom',map.getZoom())
 		console.log('lat',map.getCenter().lat())
 		console.log('lng',map.getCenter().lng())
 		localStorage.setItem('zoom', map.getZoom())
 		localStorage.setItem('lat', map.getCenter().lat())
 		localStorage.setItem('lng', map.getCenter().lng())
+		updateHash(map)
 	})
+
+	// window.onhashchange = function(e){
+	// 	console.log(e)
+	// 	hash = window.location.hash.slice(1).split('/')
+	// 	console.log(hash)
+	// 	// map.setZoom(parseInt(hash[3]))
+	// 	// map.setCenter({lat:parseFloat(hash[0]), lng:parseFloat(hash[1])})
+	// }
 
 	var bikeLayer = new google.maps.BicyclingLayer();
     bikeLayer.setMap(map);
