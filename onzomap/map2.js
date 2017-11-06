@@ -11,7 +11,9 @@ function updateHash(map){
 	console.log('lng',map.getCenter().lng().toFixed(rnd))
 	window.location.hash = `${map.getCenter().lat().toFixed(rnd)}/${map.getCenter().lng().toFixed(rnd)}/${map.getZoom()}`
 }
-
+function isSublocale(i){
+	return i.types.includes('sublocality')
+}
 function initMap() {
 	// var auckland = {lat: -36.848123, lng: 174.765588};
 
@@ -33,6 +35,8 @@ function initMap() {
 		center: {lat:lat, lng:lng}
 	});
 
+	var geocoder = new google.maps.Geocoder
+
 	map.addListener('idle',function(){
 		// console.log('zoom',map.getZoom())
 		// console.log('lat',map.getCenter().lat())
@@ -41,6 +45,28 @@ function initMap() {
 		localStorage.setItem('lat', map.getCenter().lat())
 		localStorage.setItem('lng', map.getCenter().lng())
 		updateHash(map)
+		if (map.getZoom() >= 16) {
+			geocoder.geocode({'location': map.getCenter()}, function(results, status) {
+			if (status === 'OK') {
+			console.log(results)
+			i = results.find(isSublocale)
+				if (i) {
+						console.log(i.formatted_address)
+						document.title = pageTitle + ' - ' + 
+										 i.formatted_address.substring(0,i.formatted_address.indexOf(','))
+
+					}else{
+						console.log('No results found');
+						document.title = pageTitle
+					}
+				} else {
+					console.log('Geocoder failed due to: ' + status);
+					document.title = pageTitle
+				}
+		  	});
+		}else{
+			document.title = pageTitle
+		}
 	})
 
 	// window.onhashchange = function(e){
