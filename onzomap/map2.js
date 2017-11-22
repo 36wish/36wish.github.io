@@ -1,5 +1,6 @@
-var map, pinImage, pinImage2, infowindow;
+var map, pinImage, pinImage2, pinImage3, infowindow;
 var pins = [];
+var pins2 = [];
 const aucklandLat = -36.848123;
 const aucklandLng = 174.765588;
 const pageTitle = document.title;
@@ -89,6 +90,14 @@ function initMap() {
 		new google.maps.Size(40,37),
 		new google.maps.Point(0,0),
 		new google.maps.Point(11, 34));
+
+	pinImage3 = {
+		url: `http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=|7079ff`,
+		size: new google.maps.Size(40,37),
+		origin: new google.maps.Point(0, 0),
+		anchor: new google.maps.Point(40,37),
+		labelOrigin: new google.maps.Point(10,10)
+	};
 	// var infowindow = new google.maps.InfoWindow({
  //          content: 'Change the zoom level',
  //          position: auckland
@@ -150,4 +159,45 @@ function updatePins(){
 			})
 			//console.log(pins)
 		});
+	$.get(`https://my.nextbike.net/maps/nextbike-live.xml?get_biketypes=1&entire_city=1&lat=${aucklandLat}&lng=${aucklandLng}&distance=50000&limit=2147483647`, 
+		function(data){
+			// $('#overlay').remove()
+			pins2.forEach(e=>e.setMap(null))
+			pins2 = [];	
+			console.log(data)
+			xml = $(data)
+			console.log(xml.find('place'))
+			xml.find('place').each(function(){
+				const bike = this;
+				console.log(bike)
+				console.log(bike.getAttribute('lat'))
+				console.log(bike.getAttribute('lng'))
+				console.log(bike.getAttribute('bikes'))
+
+
+
+				var marker = new google.maps.Marker({
+					position: {lat: parseFloat(bike.getAttribute('lat')), lng: parseFloat(bike.getAttribute('lng'))},
+					label: bike.getAttribute('bikes'),
+					map: map,
+					// icon: e.isLock == 0 ? pinImage2 : pinImage
+					icon: pinImage3
+				});
+
+				marker.addListener('click', function() {
+					infowindow.setContent(
+						`<div><b>${bike.getAttribute('number')} ${bike.getAttribute('name')}</b></div>
+						<div>Bikes: ${bike.getAttribute('bikes')}</div>	
+						<div>Free racks: ${bike.getAttribute('free_racks')}</div>
+														`)
+					infowindow.open(map, marker);
+				});
+
+				pins2.push(marker)
+
+			})
+			// console.log(xm)
+		}
+		)
+
 }
