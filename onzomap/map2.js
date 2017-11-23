@@ -4,6 +4,7 @@ var pins2 = [];
 const aucklandLat = -36.848123;
 const aucklandLng = 174.765588;
 const pageTitle = document.title;
+let padToTwo = number => number <= 99 ? ("0"+number).slice(-2) : number;
 
 function updateHash(map){
 	const rnd = 6
@@ -81,18 +82,23 @@ function initMap() {
 	var bikeLayer = new google.maps.BicyclingLayer();
 	bikeLayer.setMap(map);
 
-	pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|ffeb3b",
+	pinImage = new google.maps.MarkerImage("https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|ffeb3b",
 		new google.maps.Size(40,37),
 		new google.maps.Point(0,0),
 		new google.maps.Point(11, 34));
 
-	pinImage2 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|2765e0",
+	pinImage2 = new google.maps.MarkerImage("https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|2765e0",
+		new google.maps.Size(40,37),
+		new google.maps.Point(0,0),
+		new google.maps.Point(11, 34));
+
+	pinImageDead = new google.maps.MarkerImage("https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=X|fff282", //red fd3d32
 		new google.maps.Size(40,37),
 		new google.maps.Point(0,0),
 		new google.maps.Point(11, 34));
 
 	pinImage3 = {
-		url: `http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=|7079ff`,
+		url: `https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=|7079ff`,
 		size: new google.maps.Size(40,37),
 		origin: new google.maps.Point(0, 0),
 		anchor: new google.maps.Point(40,37),
@@ -137,24 +143,37 @@ function updatePins(){
 			json.query.results.json.data.forEach(function(e){
 				//console.log(e)
 				//console.log(e.latitude, e.longitude)
+
+				var date = new Date(parseInt(e.createTime))
+				var date2 = new Date(parseInt(e.updateTime))
+				const dateNow = new Date()
+
+				date2.setHours(date2.getHours() - ((date2.getTimezoneOffset()/-60) - 8));		//time in UTC+8 timezone
+
 				var marker = new google.maps.Marker({
 					position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
 					//label: e.id + '',
 					map: map,
 					// icon: e.isLock == 0 ? pinImage2 : pinImage
-					icon: pinImage
+					// icon: pinImage 
+					icon: ((date2-dateNow)/-60/1000).toFixed() < 60 ? pinImage : pinImageDead
 				});
-				var date = new Date(parseInt(e.createTime))
+
+
+				console.log(date2)
 				marker.addListener('click', function() {
 					infowindow.setContent(
 						`<div><b>${e.producid}</b></div>
 						<div>Unlocked times: ${e.unlockedTimes}</div>	
 						<div>isLock: ${e.isLock}</div>
 						<div>Created: ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}</div>
+						<div>Updated: ${date2.getDate()}/${date2.getMonth()+1}/${date2.getFullYear()} ${date2.getHours()}:${padToTwo(date2.getMinutes())}:${padToTwo(date2.getSeconds())} (${((date2-dateNow)/-60/1000).toFixed()} min ago)</div>
 
 														`)
 					infowindow.open(map, marker);
 				});
+				// if (((date2-dateNow)/-60/1000).toFixed() < 60)
+				// 	marker.setMap(null)
 				pins.push(marker)
 			})
 			//console.log(pins)
@@ -169,10 +188,10 @@ function updatePins(){
 			console.log(xml.find('place'))
 			xml.find('place').each(function(){
 				const bike = this;
-				console.log(bike)
-				console.log(bike.getAttribute('lat'))
-				console.log(bike.getAttribute('lng'))
-				console.log(bike.getAttribute('bikes'))
+				// console.log(bike)
+				// console.log(bike.getAttribute('lat'))
+				// console.log(bike.getAttribute('lng'))
+				// console.log(bike.getAttribute('bikes'))
 
 
 
