@@ -1,6 +1,7 @@
 var map, pinImage, pinImage2, pinImage3, infowindow;
 var pins = [];
 var pins2 = [];
+var displayed = true;
 var displayed2 = true;
 const aucklandLat = -36.848123;
 const aucklandLng = 174.765588;
@@ -38,33 +39,42 @@ function isSublocale(i){
 		// Set CSS for the control border
 		var goCenterUI = document.createElement('div');
 		goCenterUI.id = 'goCenterUI';
-		goCenterUI.title = 'Click to recenter the map';
+		goCenterUI.title = 'Click to hide/show OnzO';
 		controlDiv.appendChild(goCenterUI);
 
 		// Set CSS for the control interior
 		var goCenterText = document.createElement('div');
 		goCenterText.id = 'goCenterText';
-		goCenterText.innerHTML = 'Center Map';
+		goCenterText.innerHTML = 'OnzO';
 		goCenterUI.appendChild(goCenterText);
 
 		// Set CSS for the setCenter control border
 		var setCenterUI = document.createElement('div');
 		setCenterUI.id = 'setCenterUI';
-		setCenterUI.title = 'Click to change the center of the map';
+		setCenterUI.title = 'Click to hide/show Nextbike';
 		controlDiv.appendChild(setCenterUI);
 
 		// Set CSS for the control interior
 		var setCenterText = document.createElement('div');
 		setCenterText.id = 'setCenterText';
-		setCenterText.innerHTML = 'Set Center';
+		setCenterText.innerHTML = 'Nextbike';
 		setCenterUI.appendChild(setCenterText);
 
 		// Set up the click event listener for 'Center Map': Set the center of
 		// the map
 		// to the current center of the control.
 		goCenterUI.addEventListener('click', function() {
-			var currentCenter = control.getCenter();
-			map.setCenter(currentCenter);
+			if (displayed){
+				displayed = false;
+				pins.forEach(e=>e.setMap(null))
+				$('#goCenterText').removeClass('bold'); 
+			} else {
+
+				$('#goCenterText').addClass('bold'); 
+				pins.forEach(e=>e.setMap(map))
+
+				displayed = true;
+			}
 		});
 
 		// Set up the click event listener for 'Set Center': Set the center of
