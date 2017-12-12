@@ -1,8 +1,10 @@
 var map, pinImage, pinImage2, pinImage3, infowindow;
 var pins = [];
 var pins2 = [];
+var pins3 = [];
 var displayed = true;
 var displayed2 = true;
+var displayed3 = true;
 const aucklandLat = -36.848123;
 const aucklandLng = 174.765588;
 const pageTitle = document.title;
@@ -39,26 +41,44 @@ function isSublocale(i){
 		// Set CSS for the control border
 		var goCenterUI = document.createElement('div');
 		goCenterUI.id = 'goCenterUI';
+		goCenterUI.classList.add('buttonUI')
 		goCenterUI.title = 'Click to hide/show OnzO';
 		controlDiv.appendChild(goCenterUI);
 
 		// Set CSS for the control interior
 		var goCenterText = document.createElement('div');
 		goCenterText.id = 'goCenterText';
+		goCenterText.classList.add('buttonText')
 		goCenterText.innerHTML = 'OnzO';
 		goCenterUI.appendChild(goCenterText);
 
 		// Set CSS for the setCenter control border
 		var setCenterUI = document.createElement('div');
 		setCenterUI.id = 'setCenterUI';
+		setCenterUI.classList.add('buttonUI')
 		setCenterUI.title = 'Click to hide/show Nextbike';
 		controlDiv.appendChild(setCenterUI);
 
 		// Set CSS for the control interior
 		var setCenterText = document.createElement('div');
 		setCenterText.id = 'setCenterText';
+		setCenterText.classList.add('buttonText')
 		setCenterText.innerHTML = 'Nextbike';
 		setCenterUI.appendChild(setCenterText);
+
+		// Set CSS for the setCenter control border
+		var button3UI = document.createElement('div');
+		button3UI.id = 'button3UI';
+		button3UI.classList.add('buttonUI')
+		button3UI.title = 'Click to hide/show Button3';
+		controlDiv.appendChild(button3UI);
+
+		// Set CSS for the control interior
+		var button3Text = document.createElement('div');
+		button3Text.id = 'button3Text';
+		button3Text.classList.add('buttonText')
+		button3Text.innerHTML = 'Button3';
+		button3UI.appendChild(button3Text);
 
 		// Set up the click event listener for 'Center Map': Set the center of
 		// the map
@@ -210,6 +230,12 @@ function initMap() {
 		anchor: new google.maps.Point(40,37),
 		labelOrigin: new google.maps.Point(10,10)
 	};
+
+	pinImage4 = new google.maps.MarkerImage("https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|fd3d32",
+		new google.maps.Size(40,37),
+		new google.maps.Point(0,0),
+		new google.maps.Point(11, 34));
+
 	// var infowindow = new google.maps.InfoWindow({
  //          content: 'Change the zoom level',
  //          position: auckland
@@ -243,6 +269,7 @@ function initMap() {
 }
 
 function updatePins(){
+	/*
 	$.getJSON("https://query.yahooapis.com/v1/public/yql",
 		{
 			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
@@ -331,6 +358,55 @@ function updatePins(){
 			})
 			// console.log(xm)
 		}
+		)
+
+		*/
+
+		// $.getJSON("https://query.yahooapis.com/v1/public/yql",
+		// {
+		// 	q: `select * from json where url="https://api.reddygo.com.au/reddygo_http/nearbyBikes" and postdata='{"token":"","con":"AU","clientInfo":"12600,GoogleStore,1,71200","lang":"en","version":10206,"data":{"latitude":-33.86633496196667,"longitude":151.2062431499362,"billingModelIds":"5,1,10,3"}}'`,
+		// 	format: "json"
+		// },
+
+		$.post("https://cors-anywhere.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
+		{
+			data: `{"token":"","con":"AU","clientInfo":"12600,GoogleStore,1,71200","lang":"en","version":10206,"data":{"latitude":-33.86633496196667,"longitude":151.2062431499362,"billingModelIds":"5,1,10,3"}}`,
+		},
+			function(data){
+				$('#overlay').remove()
+				pins3.forEach(e=>e.setMap(null))
+				pins3 = [];	
+				console.log(data.data.bikes)
+				data.data.bikes.forEach(function(e){
+					const bike = this;
+					console.log(e)
+					// console.log(bike.getAttribute('lat'))
+					// console.log(bike.getAttribute('lng'))
+					// console.log(bike.getAttribute('bikes'))
+
+
+
+					var marker = new google.maps.Marker({
+						position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
+						map: map,
+						icon: pinImage4
+					});
+
+					marker.addListener('click', function() {
+						infowindow.setContent(
+							`<div><b>${e.no}</b></div>
+							<div>billingid: ${e.billingId}</div>
+
+							
+															`)
+						infowindow.open(map, marker);
+					});
+
+					// pins3.push(marker)
+
+				})
+				// console.log(xm)
+			}
 		)
 
 }
