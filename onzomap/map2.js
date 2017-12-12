@@ -262,14 +262,14 @@ function initMap() {
 
 	centerControlDiv.index = 1;
 	centerControlDiv.style['padding-top'] = '10px';
-	map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+	//map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 	updatePins();
 	setInterval(updatePins,1000*60*5);
 }
 
 function updatePins(){
-	/*
+	
 	$.getJSON("https://query.yahooapis.com/v1/public/yql",
 		{
 			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
@@ -360,14 +360,14 @@ function updatePins(){
 		}
 		)
 
-		*/
+		
 
 		// $.getJSON("https://query.yahooapis.com/v1/public/yql",
 		// {
 		// 	q: `select * from json where url="https://api.reddygo.com.au/reddygo_http/nearbyBikes" and postdata='{"token":"","con":"AU","clientInfo":"12600,GoogleStore,1,71200","lang":"en","version":10206,"data":{"latitude":-33.86633496196667,"longitude":151.2062431499362,"billingModelIds":"5,1,10,3"}}'`,
 		// 	format: "json"
 		// },
-
+/*
 		$.post("https://cors-anywhere.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
 		{
 			data: `{"token":"","con":"AU","clientInfo":"12600,GoogleStore,1,71200","lang":"en","version":10206,"data":{"latitude":-33.86633496196667,"longitude":151.2062431499362,"billingModelIds":"5,1,10,3"}}`,
@@ -408,5 +408,5 @@ function updatePins(){
 				// console.log(xm)
 			}
 		)
-
+*/
 }
