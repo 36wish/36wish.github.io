@@ -160,8 +160,12 @@ function initMap() {
 	console.log(lat, lng, zoom)
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: zoom,
-		center: {lat:lat, lng:lng}
+		center: {lat:lat, lng:lng},
+		streetViewControl: false
 	});
+
+	var geoloccontrol = new klokantech.GeolocationControl(map, 18);
+	console.log(geoloccontrol)
 
 	var geocoder = new google.maps.Geocoder
 
