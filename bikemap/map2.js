@@ -174,12 +174,31 @@ function initMap() {
 		// console.log('zoom',map.getZoom())
 		// console.log('lat',map.getCenter().lat())
 		// console.log('lng',map.getCenter().lng())
-		console.log(map.getBounds())
+		let bounds = map.getBounds()
+		console.log(bounds)
 
 		localStorage.setItem('zoom', map.getZoom())
 		localStorage.setItem('lat', map.getCenter().lat())
 		localStorage.setItem('lng', map.getCenter().lng())
 		updateHash(map)
+
+		//pins3.forEach(e=>e.setMap(null))
+		pins3 = [];
+		for (let lng = bounds.getSouthWest().lng(); lng < bounds.getNorthEast().lng(); lng += 0.002){
+			for (let lat = bounds.getSouthWest().lat(); lat < bounds.getNorthEast().lat(); lat += .008){
+				console.log(lat,lng)
+				$.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
+				{
+
+					data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
+				},
+					function(data){processReddy(data)}
+				)
+			}
+		}
+
+
+
 		if (map.getZoom() >= 16) {
 			geocoder.geocode({'location': map.getCenter()}, function(results, status) {
 			if (status === 'OK') {
@@ -278,7 +297,8 @@ function initMap() {
 }
 
 function updatePins(){
-	
+	$('#overlay').remove()
+	/*
 	$.getJSON("https://query.yahooapis.com/v1/public/yql",
 		{
 			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
@@ -368,7 +388,7 @@ function updatePins(){
 			// console.log(xm)
 		}
 		)
-
+*/
 		
 
 		// $.getJSON("https://query.yahooapis.com/v1/public/yql",
@@ -377,15 +397,26 @@ function updatePins(){
 		// 	format: "json"
 		// },
 
-		$.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
-		{
+		$('#overlay').remove()
+		pins3.forEach(e=>e.setMap(null))
+		pins3 = [];
+	// for (let lng = 151.13976863977052; lng < 151.26336483117677; lng += 0.002){
+	// 	for (let lat = -33.911598820742356; lat < -33.86036846726968; lat += .008){
+	// 		console.log(lat,lng)
+	// 		$.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
+	// 		{
 
-			data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
-		},
-			function(data){
-				$('#overlay').remove()
-				pins3.forEach(e=>e.setMap(null))
-				pins3 = [];	
+	// 			data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
+	// 		},
+	// 			function(data){processReddy(data)}
+	// 		)
+	// 	}
+	// }
+
+}
+
+function processReddy(data){
+					
 				console.log(data.data.bikes)
 				data.data.bikes.forEach(function(e){
 					const bike = this;
@@ -412,11 +443,9 @@ function updatePins(){
 						infowindow.open(map, marker);
 					});
 
-					// pins3.push(marker)
+					pins3.push(marker)
 
 				})
 				// console.log(xm)
 			}
-		)
 
-}
