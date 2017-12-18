@@ -1,4 +1,5 @@
 var map, pinImage, pinImage2, pinImage3, infowindow;
+var lat, lng, zoom;
 var pins = [];
 var pins2 = [];
 var pins3 = [];
@@ -145,7 +146,7 @@ function isSublocale(i){
 function initMap() {
 	var auckland = {lat: -36.848123, lng: 174.765588};
 
-	var lat, lng, zoom;
+	
 	
 	if (/#-\d+.?\d*\/\d+.?\d*\/\d{1,2}/.test(window.location.hash)){
 		hash = window.location.hash.slice(1).split('/')
@@ -173,6 +174,8 @@ function initMap() {
 		// console.log('zoom',map.getZoom())
 		// console.log('lat',map.getCenter().lat())
 		// console.log('lng',map.getCenter().lng())
+		console.log(map.getBounds())
+
 		localStorage.setItem('zoom', map.getZoom())
 		localStorage.setItem('lat', map.getCenter().lat())
 		localStorage.setItem('lng', map.getCenter().lng())
@@ -268,6 +271,8 @@ function initMap() {
 	centerControlDiv.style['padding-top'] = '10px';
 	//map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
+
+
 	updatePins();
 	setInterval(updatePins,1000*60*5);
 }
@@ -305,7 +310,7 @@ function updatePins(){
 				});
 
 
-				console.log(date2)
+				//console.log(date2)
 				marker.addListener('click', function() {
 					infowindow.setContent(
 						`<div><b>${e.producid}</b></div>
@@ -372,9 +377,10 @@ function updatePins(){
 		// 	format: "json"
 		// },
 /*
-		$.post("https://cors-anywhere.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
+		$.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
 		{
-			data: `{"token":"","con":"AU","clientInfo":"12600,GoogleStore,1,71200","lang":"en","version":10206,"data":{"latitude":-33.86633496196667,"longitude":151.2062431499362,"billingModelIds":"5,1,10,3"}}`,
+
+			data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
 		},
 			function(data){
 				$('#overlay').remove()
