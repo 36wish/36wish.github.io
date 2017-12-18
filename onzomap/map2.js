@@ -279,18 +279,14 @@ function initMap() {
 
 function updatePins(){
 	
-	$.getJSON("https://query.yahooapis.com/v1/public/yql",
-		{
-			q: `select * from json where url="https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0"`,
-			format: "json"
-		},
+	$.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0`,
 		function(json){
 			pins.forEach(e=>e.setMap(null))
 			pins = [];	
 			$('#overlay').remove()
 			console.log(json)
-			console.log(json.query.results.json.data)
-			json.query.results.json.data.forEach(function(e){
+			console.log(json.data)
+			json.data.forEach(function(e){
 				//console.log(e)
 				//console.log(e.latitude, e.longitude)
 
