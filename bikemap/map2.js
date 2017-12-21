@@ -165,7 +165,7 @@ function initMap() {
 		streetViewControl: false
 	});
 
-	var geoloccontrol = new klokantech.GeolocationControl(map, 18);
+	var geoloccontrol = new klokantech.GeolocationControl(map, 17);
 	console.log(geoloccontrol)
 
 	var geocoder = new google.maps.Geocoder
