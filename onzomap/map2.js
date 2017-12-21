@@ -143,6 +143,40 @@ function isSublocale(i){
 		this.center_ = center;
 	  };
 
+
+	function RefreshControl(controlDiv, map){
+		// Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginLeft = '10px';
+        controlUI.style.marginBottom = '10px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Reload bike info';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '25px';
+        // controlText.style.height = '25px';
+        controlText.style.width = '25px';
+        // controlText.style.paddingLeft = '5px';
+        // controlText.style.paddingRight = '5px';
+        controlText.innerHTML = '<i class="fa fa-refresh" title="Refresh"></i>';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners: simply set the map to Chicago.
+        controlUI.addEventListener('click', function() {
+        	updatePins()
+        });
+	}
+
 function initMap() {
 	var auckland = {lat: -36.848123, lng: 174.765588};
 
@@ -269,7 +303,16 @@ function initMap() {
 
 	centerControlDiv.index = 1;
 	centerControlDiv.style['padding-top'] = '10px';
-	//map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+	// map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+
+    // Create the DIV to hold the control and call the CenterControl()
+    // constructor passing in this DIV.
+    var refreshControlDiv = document.createElement('div');
+    var refreshControl = new RefreshControl(refreshControlDiv, map);
+
+    refreshControlDiv.index = 2;
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(refreshControlDiv);
 
 
 
@@ -278,12 +321,15 @@ function initMap() {
 }
 
 function updatePins(){
+
+	$('.fa-refresh').addClass('fa-spin')
 	
 	$.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0`,
 		function(json){
 			pins.forEach(e=>e.setMap(null))
 			pins = [];	
 			$('#overlay').remove()
+			$('.fa-refresh').removeClass('fa-spin')
 			console.log(json)
 			console.log(json.data)
 			json.data.forEach(function(e){
