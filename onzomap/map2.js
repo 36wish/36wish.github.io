@@ -340,8 +340,8 @@ function initMap() {
 function updatePins(){
 
 	$('.fa-refresh').addClass('fa-spin')
-	$.when(updateOnzo(), updateNextbike(),...updateReddy()).done(function(a1, a2){
-	// $.when(updateOnzo(),updateNextbike()).done(function(){
+	// $.when(updateOnzo(), updateNextbike(),...updateReddy()).done(function(a1, a2){
+	$.when(updateOnzo(),updateNextbike()).done(function(){
 	    // the code here will be executed when all four ajax requests resolve.
 	    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
 	    // status, and jqXHR object for each of the four ajax calls respectively.
@@ -515,7 +515,29 @@ function updateReddy(){
 
 				data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
 			},
-				function(data){processReddy(data)}
+				function(data){
+					console.log(data.data.bikes)
+					data.data.bikes.forEach(function(e){
+						const bike = this;
+						console.log(e)
+
+						var marker = new google.maps.Marker({
+							position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
+							map: map,
+							icon: pinImage4
+						});
+
+						marker.addListener('click', function() {
+							infowindow.setContent(
+								`<div><b>${e.no}</b></div>
+								<div>billingid: ${e.billingId}</div>`)
+							infowindow.open(map, marker);
+						});
+
+						pins3.push(marker)
+
+					})
+				}
 			))
 		}
 	}
@@ -523,38 +545,3 @@ function updateReddy(){
 	return deferred;
 
 }
-
-function processReddy(data){
-					
-	console.log(data.data.bikes)
-	data.data.bikes.forEach(function(e){
-		const bike = this;
-		console.log(e)
-		// console.log(bike.getAttribute('lat'))
-		// console.log(bike.getAttribute('lng'))
-		// console.log(bike.getAttribute('bikes'))
-
-
-
-		var marker = new google.maps.Marker({
-			position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
-			map: map,
-			icon: pinImage4
-		});
-
-		marker.addListener('click', function() {
-			infowindow.setContent(
-				`<div><b>${e.no}</b></div>
-				<div>billingid: ${e.billingId}</div>
-
-				
-												`)
-			infowindow.open(map, marker);
-		});
-
-		pins3.push(marker)
-
-	})
-	// console.log(xm)
-}
-
