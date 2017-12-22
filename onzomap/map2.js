@@ -286,6 +286,15 @@ function initMap() {
 		new google.maps.Point(0,0),
 		new google.maps.Point(11, 34));
 
+
+
+	pinImage5 = new google.maps.MarkerImage("https://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|00ff00",
+		new google.maps.Size(40,37),
+		new google.maps.Point(0,0),
+		new google.maps.Point(11, 34));
+
+
+
 	// var infowindow = new google.maps.InfoWindow({
  //          content: 'Change the zoom level',
  //          position: auckland
@@ -331,13 +340,12 @@ function initMap() {
 function updatePins(){
 
 	$('.fa-refresh').addClass('fa-spin')
-	// $.when(updateOnzo(),updateNextbike(),...updateReddy()).done(function(a1, a2){
-	$.when(updateOnzo(),updateNextbike()).done(function(){
+	$.when(updateOnzo(), updateNextbike(),...updateReddy()).done(function(a1, a2){
+	// $.when(updateOnzo(),updateNextbike()).done(function(){
 	    // the code here will be executed when all four ajax requests resolve.
 	    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
 	    // status, and jqXHR object for each of the four ajax calls respectively.
-			$('#overlay').remove()
-
+		$('#overlay').remove()
     	$('.fa-refresh').removeClass('fa-spin')
 	});
 	
@@ -490,9 +498,18 @@ function updateNextbike(){
 function updateReddy(){
 
 	pins3 = [];
-	for (let lng = bounds.getSouthWest().lng(); lng < bounds.getNorthEast().lng(); lng += 0.002){
-		for (let lat = bounds.getSouthWest().lat(); lat < bounds.getNorthEast().lat(); lat += .008){
+
+	const lngSpace = .015;
+	const latSpace = .015;
+
+	for (let lng = bounds.getSouthWest().lng()+lngSpace/4; lng < bounds.getNorthEast().lng()+lngSpace/4; lng += lngSpace){
+		for (let lat = bounds.getSouthWest().lat()+latSpace/4; lat < bounds.getNorthEast().lat()+lngSpace/4; lat += latSpace){
 			console.log(lat,lng)
+			// var marker = new google.maps.Marker({
+			// 	position: {lat: lat, lng: lng},
+			// 	map: map,
+			// 	icon: pinImage5
+			// });
 			deferred.push($.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
 			{
 
