@@ -1,8 +1,9 @@
-var map, pinImage, pinImage2, pinImage3, infowindow;
+var map, pinImage, pinImage2, pinImage3, infowindow, bounds;
 var lat, lng, zoom;
 var pins = [];
 var pins2 = [];
 var pins3 = [];
+var deferred = [];
 var displayed = true;
 var displayed2 = true;
 var displayed3 = true;
@@ -199,8 +200,11 @@ function initMap() {
 		streetViewControl: false
 	});
 
+	// bounds = map.getBounds();
+	// console.log(bounds)
+
 	var geoloccontrol = new klokantech.GeolocationControl(map, 17);
-	console.log(geoloccontrol)
+	//console.log(geoloccontrol)
 
 	var geocoder = new google.maps.Geocoder
 
@@ -209,6 +213,11 @@ function initMap() {
 		// console.log('lat',map.getCenter().lat())
 		// console.log('lng',map.getCenter().lng())
 		console.log(map.getBounds())
+		bounds = map.getBounds()
+
+		if ($('#overlay').length > 0)
+			updatePins();
+	
 
 		localStorage.setItem('zoom', map.getZoom())
 		localStorage.setItem('lat', map.getCenter().lat())
@@ -314,102 +323,26 @@ function initMap() {
     refreshControlDiv.index = 2;
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(refreshControlDiv);
 
+    
+    setInterval(updatePins,1000*60*5);
 
-
-	updatePins();
-	setInterval(updatePins,1000*60*5);
 }
 
 function updatePins(){
 
 	$('.fa-refresh').addClass('fa-spin')
-	
-	$.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0`,
-		function(json){
-			pins.forEach(e=>e.setMap(null))
-			pins = [];	
+	// $.when(updateOnzo(),updateNextbike(),...updateReddy()).done(function(a1, a2){
+	$.when(updateOnzo(),updateNextbike()).done(function(){
+	    // the code here will be executed when all four ajax requests resolve.
+	    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+	    // status, and jqXHR object for each of the four ajax calls respectively.
 			$('#overlay').remove()
-			$('.fa-refresh').removeClass('fa-spin')
-			console.log(json)
-			console.log(json.data)
-			json.data.forEach(function(e){
-				//console.log(e)
-				//console.log(e.latitude, e.longitude)
 
-				var date = new Date(parseInt(e.createTime))
-				var date2 = new Date(parseInt(e.updateTime))
-				const dateNow = new Date()
-
-				date2.setHours(date2.getHours() - ((date2.getTimezoneOffset()/-60) - 8));		//time in UTC+8 timezone
-
-				var marker = new google.maps.Marker({
-					position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
-					//label: e.id + '',
-					map: map,
-					// icon: e.isLock == 0 ? pinImage2 : pinImage
-					// icon: pinImage 
-					icon: ((date2-dateNow)/-60/1000).toFixed() < 60 ? pinImage : pinImageDead
-				});
-
-
-				//console.log(date2)
-				marker.addListener('click', function() {
-					infowindow.setContent(
-						`<div><b>${e.producid}</b></div>
-						<div>Unlocked times: ${e.unlockedTimes}</div>	
-						<div>isLock: ${e.isLock}</div>
-						<div>Created: ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}</div>
-						<div>Updated: ${date2.getDate()}/${date2.getMonth()+1}/${date2.getFullYear()} ${date2.getHours()}:${padToTwo(date2.getMinutes())}:${padToTwo(date2.getSeconds())} (${((date2-dateNow)/-60/1000).toFixed()} min ago)</div>
-
-														`)
-					infowindow.open(map, marker);
-				});
-				// if (((date2-dateNow)/-60/1000).toFixed() < 60)
-				// 	marker.setMap(null)
-				pins.push(marker)
-			})
-			//console.log(pins)
-		});
-	$.get(`https://my.nextbike.net/maps/nextbike-live.xml?get_biketypes=1&entire_city=1&lat=${aucklandLat}&lng=${aucklandLng}&distance=50000&limit=2147483647`, 
-		function(data){
-			// $('#overlay').remove()
-			pins2.forEach(e=>e.setMap(null))
-			pins2 = [];	
-			console.log(data)
-			xml = $(data)
-			console.log(xml.find('place'))
-			xml.find('place').each(function(){
-				const bike = this;
-				// console.log(bike)
-				// console.log(bike.getAttribute('lat'))
-				// console.log(bike.getAttribute('lng'))
-				// console.log(bike.getAttribute('bikes'))
-
-
-
-				var marker = new google.maps.Marker({
-					position: {lat: parseFloat(bike.getAttribute('lat')), lng: parseFloat(bike.getAttribute('lng'))},
-					label: bike.getAttribute('bikes'),
-					map: map,
-					// icon: e.isLock == 0 ? pinImage2 : pinImage
-					icon: pinImage3
-				});
-
-				marker.addListener('click', function() {
-					infowindow.setContent(
-						`<div><b>${bike.getAttribute('number')} ${bike.getAttribute('name')}</b></div>
-						<div>Bikes: ${bike.getAttribute('bikes')}</div>	
-						<div>Free racks: ${bike.getAttribute('free_racks')}</div>
-														`)
-					infowindow.open(map, marker);
-				});
-
-				pins2.push(marker)
-
-			})
-			// console.log(xm)
-		}
-		)
+    	$('.fa-refresh').removeClass('fa-spin')
+	});
+	
+	
+	
 
 		
 
@@ -462,3 +395,149 @@ function updatePins(){
 		)
 */
 }
+
+function updateOnzo(){
+	return $.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0`,
+		function(json){
+			pins.forEach(e=>e.setMap(null))
+			pins = [];	
+			
+			console.log(json)
+			console.log(json.data)
+			json.data.forEach(function(e){
+				//console.log(e)
+				//console.log(e.latitude, e.longitude)
+
+				var date = new Date(parseInt(e.createTime))
+				var date2 = new Date(parseInt(e.updateTime))
+				const dateNow = new Date()
+
+				date2.setHours(date2.getHours() - ((date2.getTimezoneOffset()/-60) - 8));		//time in UTC+8 timezone
+
+				var marker = new google.maps.Marker({
+					position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
+					//label: e.id + '',
+					map: map,
+					// icon: e.isLock == 0 ? pinImage2 : pinImage
+					// icon: pinImage 
+					icon: ((date2-dateNow)/-60/1000).toFixed() < 60 ? pinImage : pinImageDead
+				});
+
+
+				//console.log(date2)
+				marker.addListener('click', function() {
+					infowindow.setContent(
+						`<div><b>${e.producid}</b></div>
+						<div>Unlocked times: ${e.unlockedTimes}</div>	
+						<div>isLock: ${e.isLock}</div>
+						<div>Created: ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}</div>
+						<div>Updated: ${date2.getDate()}/${date2.getMonth()+1}/${date2.getFullYear()} ${date2.getHours()}:${padToTwo(date2.getMinutes())}:${padToTwo(date2.getSeconds())} (${((date2-dateNow)/-60/1000).toFixed()} min ago)</div>
+
+														`)
+					infowindow.open(map, marker);
+				});
+				// if (((date2-dateNow)/-60/1000).toFixed() < 60)
+				// 	marker.setMap(null)
+				pins.push(marker)
+			})
+			//console.log(pins)
+		});
+}
+
+function updateNextbike(){
+	return $.get(`https://my.nextbike.net/maps/nextbike-live.xml?get_biketypes=1&entire_city=1&lat=${aucklandLat}&lng=${aucklandLng}&distance=50000&limit=2147483647`, 
+		function(data){
+			// $('#overlay').remove()
+			pins2.forEach(e=>e.setMap(null))
+			pins2 = [];	
+			console.log(data)
+			xml = $(data)
+			console.log(xml.find('place'))
+			xml.find('place').each(function(){
+				const bike = this;
+				// console.log(bike)
+				// console.log(bike.getAttribute('lat'))
+				// console.log(bike.getAttribute('lng'))
+				// console.log(bike.getAttribute('bikes'))
+
+
+
+				var marker = new google.maps.Marker({
+					position: {lat: parseFloat(bike.getAttribute('lat')), lng: parseFloat(bike.getAttribute('lng'))},
+					label: bike.getAttribute('bikes'),
+					map: map,
+					// icon: e.isLock == 0 ? pinImage2 : pinImage
+					icon: pinImage3
+				});
+
+				marker.addListener('click', function() {
+					infowindow.setContent(
+						`<div><b>${bike.getAttribute('number')} ${bike.getAttribute('name')}</b></div>
+						<div>Bikes: ${bike.getAttribute('bikes')}</div>	
+						<div>Free racks: ${bike.getAttribute('free_racks')}</div>
+														`)
+					infowindow.open(map, marker);
+				});
+
+				pins2.push(marker)
+
+			})
+			// console.log(xm)
+		}
+		)
+}
+
+function updateReddy(){
+
+	pins3 = [];
+	for (let lng = bounds.getSouthWest().lng(); lng < bounds.getNorthEast().lng(); lng += 0.002){
+		for (let lat = bounds.getSouthWest().lat(); lat < bounds.getNorthEast().lat(); lat += .008){
+			console.log(lat,lng)
+			deferred.push($.post("https://morning-brook-44398.herokuapp.com/https://api.reddygo.com.au/reddygo_http/nearbyBikes",
+			{
+
+				data: `{"data":{"latitude":${lat},"longitude":${lng}}}`,
+			},
+				function(data){processReddy(data)}
+			))
+		}
+	}
+
+	return deferred;
+
+}
+
+function processReddy(data){
+					
+	console.log(data.data.bikes)
+	data.data.bikes.forEach(function(e){
+		const bike = this;
+		console.log(e)
+		// console.log(bike.getAttribute('lat'))
+		// console.log(bike.getAttribute('lng'))
+		// console.log(bike.getAttribute('bikes'))
+
+
+
+		var marker = new google.maps.Marker({
+			position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
+			map: map,
+			icon: pinImage4
+		});
+
+		marker.addListener('click', function() {
+			infowindow.setContent(
+				`<div><b>${e.no}</b></div>
+				<div>billingid: ${e.billingId}</div>
+
+				
+												`)
+			infowindow.open(map, marker);
+		});
+
+		pins3.push(marker)
+
+	})
+	// console.log(xm)
+}
+
