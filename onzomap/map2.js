@@ -340,7 +340,7 @@ function initMap() {
 function updatePins(){
 
 	$('.fa-refresh').addClass('fa-spin')
-	// $.when(updateOnzo(), updateNextbike(),...updateReddy()).done(function(a1, a2){
+	// $.when(updateOnzo(), updateNextbike(),...updateReddy()).done(function(){
 	$.when(updateOnzo(),updateNextbike()).done(function(){
 	    // the code here will be executed when all four ajax requests resolve.
 	    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
@@ -496,6 +496,11 @@ function updateNextbike(){
 }
 
 function updateReddy(){
+
+	if (map.getZoom() < 16){	//not update reddy if zoom level is too low, because it'll be too slow
+		console.info('not updating reddy')
+		return deferred;
+	}
 
 	pins3 = [];
 
