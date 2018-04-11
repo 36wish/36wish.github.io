@@ -2,7 +2,7 @@
 comments: true
 date: '2017-10-30 12:08 +1300'
 published: true
-title: Dockless bike share in Auckland! Onzo first look and referral code.
+title: Dockless bike share in Auckland! Onzo first look and invite code.
 tags: transport
 description: Dockless bike share is here! So exciting!
 ---
@@ -10,7 +10,7 @@ description: Dockless bike share is here! So exciting!
 
 Dockless bike shares have been a thing overseas for a while now, and it's so exciting to see it in Auckland! I took one out for a spin on the pink Lightpath today.
 
-The bikes are from a Chinese company called Onzo. As usual, you register by downloading their app [[Android](Android)] [[iOS](https://itunes.apple.com/nz/app/onzo/id1291209476?mt=8)] and entering your credit card details. It charges a $10 deposit (refundable) and they give you $10 credit for signing up. If you enter my referral code **MRLUCJ** you get another $1 bonus.
+The bikes are from a Chinese company called Onzo. As usual, you register by downloading their app [[Android](Android)] [[iOS](https://itunes.apple.com/nz/app/onzo/id1291209476?mt=8)] and entering your credit card details. It charges a $10 deposit (refundable) and they give you $10 credit for signing up. If you enter my referral code **OFUTPK** you get another $1 bonus.
 
 You scan the QR code on the bike using the app to unlock it, and once you've finished with it, just put it in a safe location and lock the bike. Easy. The price currently is $0.25/15 minutes.
 

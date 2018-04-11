@@ -413,35 +413,35 @@ function updatePins(){
 
 function processReddy(data){
 					
-				console.log(data.data.bikes)
-				data.data.bikes.forEach(function(e){
-					const bike = this;
-					console.log(e)
-					// console.log(bike.getAttribute('lat'))
-					// console.log(bike.getAttribute('lng'))
-					// console.log(bike.getAttribute('bikes'))
+	console.log(data.data.bikes)
+	data.data.bikes.forEach(function(e){
+		const bike = this;
+		console.log(e)
+		// console.log(bike.getAttribute('lat'))
+		// console.log(bike.getAttribute('lng'))
+		// console.log(bike.getAttribute('bikes'))
 
 
 
-					var marker = new google.maps.Marker({
-						position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
-						map: map,
-						icon: pinImage4
-					});
+		var marker = new google.maps.Marker({
+			position: {lat: parseFloat(e.latitude), lng: parseFloat(e.longitude)},
+			map: map,
+			icon: pinImage4
+		});
 
-					marker.addListener('click', function() {
-						infowindow.setContent(
-							`<div><b>${e.no}</b></div>
-							<div>billingid: ${e.billingId}</div>
+		marker.addListener('click', function() {
+			infowindow.setContent(
+				`<div><b>${e.no}</b></div>
+				<div>billingid: ${e.billingId}</div>
 
-							
-															`)
-						infowindow.open(map, marker);
-					});
+				
+												`)
+			infowindow.open(map, marker);
+		});
 
-					pins3.push(marker)
+		pins3.push(marker)
 
-				})
-				// console.log(xm)
-			}
+	})
+	// console.log(xm)
+}
 
