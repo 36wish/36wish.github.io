@@ -405,7 +405,7 @@ function updatePins(){
 }
 
 function updateOnzo(){
-	return $.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${aucklandLat}/${aucklandLng}/50.0`,
+	return $.getJSON(`https://morning-brook-44398.herokuapp.com/https://app.onzo.co.nz/nearby/${map.getCenter().lat()}/${map.getCenter().lng()}/50.0`,
 		function(json){
 			pins.forEach(e=>e.setMap(null))
 			pins = [];	
