@@ -6,7 +6,7 @@ title: Kwikli electric moped referral code
 description: Dockless electric moped in NZ!
 tags: transport
 ---
-![Kwikli scooter (credit:Kwikli)]({{site.baseurl}}/images/42570037_352203371990195_2575099645780819968_n.jpg)!
+[Kwikli scooter (credit:Kwikli)]({{site.baseurl}}/images/42570037_352203371990195_2575099645780819968_n.jpg)
 
 Kwikli is a electric moped rental service in New Zealand! You sign up with the app, then use it to unlock mopeds parked around the city. You pay by the minute then park it anywhere in zone after you've done.
 
