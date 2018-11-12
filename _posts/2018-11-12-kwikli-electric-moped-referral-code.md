@@ -1,7 +1,7 @@
 ---
 comments: true
 date: '2018-11-12 15:18 +1300'
-published: false
+published: true
 title: Kwikli electric moped referral code
 description: Dockless electric moped in NZ!
 tags: transport
