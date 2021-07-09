@@ -16,22 +16,24 @@ CITIC [inMotion](https://www.cncbinternational.com/personal/e-banking/inmotion/e
 
 Referral code: 1N9T6Q0
 
-✅ Works with overseas address, mobile and tax code
-✅ ID scanning pretty good
-✅ No need for further facial recognition after you sign up, which is important if you are helping others to get their cash.
-❌ Text to NZ mobile numbers are often delayed, so suggest you get a US number as below and use it to sign up
-❌ If you need to change mobile number you need to do it in person in HK
-❌ No interest
+✅ Works with overseas address, mobile and tax code  
+✅ ID scanning pretty good  
+✅ No need for further facial recognition after you sign up, which is important if you are helping others to get their cash.  
+❌ Text to NZ mobile numbers are often delayed, so suggest you get a US number as below and use it to sign up  
+❌ If you need to change mobile number you need to do it in person in HK  
+❌ No interest  
+❌ Bank card is HK$50/year    
 
 ## BOCOM
 
 Bank of Communications [remote account opening](https://www.hk.bankcomm.com/hk/shtml/hk/en/2005575/2602047/2626804.shtml?channelId=2005575)
 
 ✅ Works with overseas address, mobile and tax code  
-❌ App is very finiky, does not work properly on some phones
-❌ ID scanning is also very picky. If you can't get it to work after a few tries, it will lock you out. You will need to supply a new mobile and email to try scanning again.
-❌ There is a low balance fee of HK$60/month if there's less than HK$5000 in the account. It's not a problem if you just take the money and leave, but be aware if you want to keep on using it.
-❌ No interest
+❌ App is very finiky, does not work properly on some phones  
+❌ ID scanning is also very picky. If you can't get it to work after a few tries, it will lock you out. You will need to supply a new mobile and email to try scanning again.  
+❌ There is a low balance fee of HK$60/month if there's less than HK$5000 in the account. It's not a problem if you just take the money and leave, but be aware if you want to keep on using it.  
+❌ No interest  
+❌ Bank card is HK$50/year  
 
 ## ZA
 
@@ -39,22 +41,24 @@ Bank of Communications [remote account opening](https://www.hk.bankcomm.com/hk/s
 
 Referral code: XH2348
 
-✅ Best designed app
-✅ Cute cartoon characters and lucky draw which makes banking fun
-✅ Sign up bonus of at least HK$100 if you use referral code above (amount varies depending on your luck)
-✅ Good interest rate
-❌ Difficult to download app. iPhone: make a new Apple ID with region set to Hong Kong. Android: use the .apk provided
-❌ You can sign up using an overseas address, but I don't recommend it because they will ask you lots of questions and maybe close your account. Best to use a HK address to sign up
-❌ Must use HK phone number, see below on how to get one
-❌ Requires facial recognition to log in so is more troublesome if you're doing this for other people
+✅ Best designed app  
+✅ Cute cartoon characters and lucky draw which makes banking fun  
+✅ Sign up bonus of at least HK$100 if you use referral code above (amount varies depending on your luck)  
+✅ Good interest rate  
+✅ Free debit card  
+❌ Difficult to download app. iPhone: make a new Apple ID with region set to Hong Kong. Android: use the .apk provided  
+❌ You can sign up using an overseas address, but I don't recommend it because they will ask you lots of questions and maybe close your account. Best to use a HK address to sign up  
+❌ Must use HK phone number, see below on how to get one  
+❌ Requires facial recognition to log in so is more troublesome if you're doing this for other people  
 
 ## Mox
 
 [Mox Bank](https://mox.com/) cannot be used for the HK gov cash payout but it's a good bank to use if you want to keep some money in HK. 
 
-✅ Very good app design
-✅ Good interest rate
-❌ Requires Hong Kong address
+✅ Very good app design  
+✅ Good interest rate 
+✅ Free debit card   
+❌ Requires Hong Kong address  
 
 # Phone numbers
 
